@@ -32,8 +32,6 @@ for (let i = -1; i < 4; i++) {
     dates.push(nextDate);
 }
 
-console.log(dates); 
-
 const data = {
   labels: dates,
   datasets: [

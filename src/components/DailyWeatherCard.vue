@@ -1,16 +1,18 @@
 <script setup>
 import Chevron from '@/components/icons/Chevron.vue'
 import { ref } from 'vue'
+import { getDescription, getImage } from '@/utils/wmoCodes'
 
 const isOpen = ref(false)
 
 function toggleCard() {
   isOpen.value = !isOpen.value
 }
-function handleCardClick() {
-  const card = document.querySelector('.card')
-  card.classList.toggle('open')
-}
+
+defineProps({ 
+  weather: Object 
+});
+
 </script>
 
 <template>
@@ -27,8 +29,8 @@ function handleCardClick() {
           <span class="date">17 Sep</span>
         </div>
         <div class="weather">
-          <span>☀️</span>
-          <span class="description">Sunny</span>
+          <img :src="getImage(weather.weather_code)"/>
+          <span class="description">{{ getDescription(weather.weather_code) }}</span>
         </div>
       </div>
 
@@ -49,7 +51,7 @@ function handleCardClick() {
 <style scoped>
 .card {
   min-width: fit-content;
-  border: 2px solid var(--color-border);
+  border: 1px solid var(--color-border);
   border-radius: var(--border-radius);
   padding: 1rem;
   background: var(--darken-translucent)
@@ -101,6 +103,13 @@ function handleCardClick() {
   display: flex;
   align-items: center;
   gap: 0.5rem;
+}
+
+.weather img {
+    width: 54px;
+    height: 54px;
+    object-fit: contain;
+    flex-shrink: 0;
 }
 
 .weather .description {
