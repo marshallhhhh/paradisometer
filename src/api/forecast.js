@@ -36,20 +36,8 @@ export async function fetchForecast() {
         )
     }))
 
-    var { time, ...fields } = data.hourly;
-    const hourly = time.map((date, index) => ({
-        date,
-        ...Object.fromEntries(
-            Object.entries(fields).map(([key, values]) => [
-                key,
-                values[index]
-            ])
-        ),
-        deltaT: +(data.hourly.temperature_2m[index] - data.hourly.wet_bulb_temperature_2m[index]).toFixed(2)
-    }))
-
     return {
-        hourly,
+        hourly: data.hourly,
         daily
     }
 }

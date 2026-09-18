@@ -5,8 +5,8 @@ import DailyCardList from '@/components/DailyCardList.vue'
 </script>
 
 <template>
-  <DailyCardList />
   <DeltaTChart />
+  <DailyCardList />
 </template>
 
 <style scoped></style>
