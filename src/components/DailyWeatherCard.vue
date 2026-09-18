@@ -41,24 +41,18 @@ defineProps({
 <template>
   <article class="card" :class="{ open: isOpen }">
     <button class="card-header" type="button" :aria-expanded="isOpen" @click="toggleCard">
-      <div class="left">
         <div class="day-date">
           <span class="day">{{ formatDay(weather.date) }}</span>
           <span class="date">{{ formatDate(weather.date) }}</span>
         </div>
-        <div class="weather">
-          <img :src="getImage(weather.weather_code)" />
+          <img class="weather-icon" :src="getImage(weather.weather_code)" />
           <span class="description">{{ getDescription(weather.weather_code) }}</span>
-        </div>
-      </div>
 
-      <div class="right">
-        <div class="daily-temps">
-          <span class="max">{{ (weather.temperature_2m_max).toFixed(0) }}°</span>
-          <span class="min">{{ (weather.temperature_2m_min).toFixed(0) }}°</span>
-        </div>
+          <div class="temps">
+            <span class="max">{{ (weather.temperature_2m_max).toFixed(0) }}°</span>
+            <span class="min">{{ (weather.temperature_2m_min).toFixed(0) }}°</span>
+          </div>
         <Chevron class="card-chevron" />
-      </div>
     </button>
     <div v-if="isOpen" class="card-detail">
       <p>this is the card content</p>
@@ -76,7 +70,9 @@ defineProps({
 }
 
 .card-header {
-  display: flex;
+  display: grid;
+  grid-template-columns: 125px 60px 1fr auto 25px;
+  grid-template-rows: 1fr;
   width: 100%;
   align-items: center;
   border: 0;
@@ -112,51 +108,34 @@ defineProps({
   color: var(--color-text);
 }
 
-.left {
-  display: flex;
-  gap: 2rem;
-}
-
-.weather {
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-}
-
-.weather img {
+.weather-icon {
   width: 54px;
   height: 54px;
   object-fit: contain;
   flex-shrink: 0;
 }
 
-.weather .description {
+.description {
   font-size: 1.5rem;
-  color: var(--color-text)
+  color: var(--color-text);
+  white-space: nowrap;
+  margin-right: 0.5rem;
 }
 
-.right {
+.temps {
   display: flex;
-  margin-left: auto;
-  align-items: center;
-  justify-content: space-between;
-  gap: 0.7rem;
-}
-
-.daily-temps {
-  display: flex;
-  flex-direction: row;
   align-items: baseline;
-  gap: 0.5rem;
+  gap: 0.3rem;
+  margin-right: 0.5rem;
 }
 
-.daily-temps .max {
+.max {
   font-size: 1.5rem;
   font-weight: bold;
   color: #ffffff;
 }
 
-.daily-temps .min {
+.min {
   font-size: 1rem;
   color: #ffffff;
 }

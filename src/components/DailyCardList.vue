@@ -14,8 +14,8 @@ const {
     <div v-if="isPending">
         Loading...
     </div>
-
     <div v-else class="panel">
+        <h3 style="font-weight: 700;">Daily Forecast</h3>
         <div v-for="day in forecast.daily" :key="date">
             <DailyWeatherCard :weather="day"/>
         </div>
