@@ -40,23 +40,19 @@ function handleCardClick() {
         <Chevron class="card-chevron" />
       </div>
     </button>
-    <Transition name="dropdown">
-      <div v-if="isOpen" class="card-detail-wrapper">
-        <div class="card-detail">
+        <div v-if="isOpen" class="card-detail">
           <p>this is the card content</p>
         </div>
-      </div>
-    </Transition>
   </article>
 </template>
 
 <style scoped>
-
 .card {
   min-width: fit-content;
   border: 2px solid var(--color-border);
   border-radius: var(--border-radius);
   padding: 1rem;
+  background: var(--darken-translucent)
 }
 
 .card-header {
@@ -93,7 +89,7 @@ function handleCardClick() {
 .day {
   font-size: 1.2rem;
   font-weight: bold;
-  color: #ffffff;
+  color: var(--color-text);
 }
 
 .left {
@@ -109,7 +105,7 @@ function handleCardClick() {
 
 .weather .description {
   font-size: 1.5rem;
-  color: #ffffff;
+  color: var(--color-text)
 }
 
 .right {
