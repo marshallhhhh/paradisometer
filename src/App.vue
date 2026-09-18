@@ -6,6 +6,4 @@ import DailyWeatherCard from '@/components/DailyWeatherCard.vue'
   <DailyWeatherCard />
 </template>
 
-<style scoped>
-
-</style>
+<style scoped></style>
