@@ -2,6 +2,7 @@
 import Chevron from '@/components/icons/Chevron.vue'
 import { ref } from 'vue'
 import { getDescription, getImage } from '@/utils/wmoCodes'
+import { useForecast } from '@/queries/useForecast'
 
 const isOpen = ref(false)
 
@@ -9,42 +10,59 @@ function toggleCard() {
   isOpen.value = !isOpen.value
 }
 
-defineProps({ 
-  weather: Object 
+function formatDate(dateString) {
+  const date = new Date(dateString);
+
+  const options = {
+    day: 'numeric',
+    month: 'short'
+  }
+  
+  return new Intl.DateTimeFormat('en-AU', options).format(date);
+}
+
+function formatDay(dateString) {
+  const date = new Date(dateString);
+  const now = new Date();
+  
+  if (date.getUTCDate() == now.getUTCDate()) {
+    return "Today"
+  } else {
+    return new Intl.DateTimeFormat('en-AU', { weekday: 'long'}).format(date);
+  }
+}
+
+defineProps({
+  weather: Object
 });
 
 </script>
 
 <template>
   <article class="card" :class="{ open: isOpen }">
-    <button 
-      class="card-header"
-      type="button"
-      :aria-expanded="isOpen"
-      @click="toggleCard"
-    >
+    <button class="card-header" type="button" :aria-expanded="isOpen" @click="toggleCard">
       <div class="left">
         <div class="day-date">
-          <span class="day">Today</span>
-          <span class="date">17 Sep</span>
+          <span class="day">{{ formatDay(weather.date) }}</span>
+          <span class="date">{{ formatDate(weather.date) }}</span>
         </div>
         <div class="weather">
-          <img :src="getImage(weather.weather_code)"/>
+          <img :src="getImage(weather.weather_code)" />
           <span class="description">{{ getDescription(weather.weather_code) }}</span>
         </div>
       </div>
 
       <div class="right">
         <div class="daily-temps">
-          <span class="max">25°</span>
-          <span class="min">15°</span>
+          <span class="max">{{ (weather.temperature_2m_max).toFixed(0) }}°</span>
+          <span class="min">{{ (weather.temperature_2m_min).toFixed(0) }}°</span>
         </div>
         <Chevron class="card-chevron" />
       </div>
     </button>
-        <div v-if="isOpen" class="card-detail">
-          <p>this is the card content</p>
-        </div>
+    <div v-if="isOpen" class="card-detail">
+      <p>this is the card content</p>
+    </div>
   </article>
 </template>
 
@@ -106,10 +124,10 @@ defineProps({
 }
 
 .weather img {
-    width: 54px;
-    height: 54px;
-    object-fit: contain;
-    flex-shrink: 0;
+  width: 54px;
+  height: 54px;
+  object-fit: contain;
+  flex-shrink: 0;
 }
 
 .weather .description {
