@@ -6,7 +6,7 @@ import DailyCardList from '@/components/DailyCardList.vue'
 
 <template>
   <DeltaTChart />
-  <DailyCardList />
+  <!--- <DailyCardList /> -->
 </template>
 
 <style scoped></style>
