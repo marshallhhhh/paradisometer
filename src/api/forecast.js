@@ -50,3 +50,6 @@ export async function fetchForecast() {
         daily
     }
 }
+
+const reuslt = await fetchForecast()
+console.log(reuslt)
